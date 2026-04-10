@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FragataMania Atalaya - Tienda de Ropa</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+<header class="navbar">
+    <div class="logo-container">
+        <img src="img/logoblack.png" alt="Logo" class="logo-img">
+        <div class="logo-text">
+            <h1>FRAGATAMANIA</h1>
+            <p>ATALAYA</p>
+        </div>
+    </div>
+
+    <nav class="nav-container" id="nav-menu">
+        <ul class="nav-links">
+            <li><a href="#">DESTACADOS</a></li>
+            <li><a href="#">HOMBRE</a></li>
+            <li><a href="#">MUJER</a></li>
+            <li><a href="#">NIÑO/A</a></li>
+            <li><a href="#" class="sale-button">SALE</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-right">
+        <div class="search-box-static">
+            <input type="text" placeholder="Buscar...">
+            <button id="search-btn"><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="cart-container">
+            <a href="#" id="cart-icon">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="cart-count">0</span>
+            </a>
+        </div>
+
+        <button class="menu-toggle" id="mobile-menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</header>
+
+<main class="container">
+    <h2 class="section-title">Nuevos Ingresos</h2>
+    
+    <div class="products-grid">
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge">Nuevo</span>
+                <img src="img/camisetas/titular2026.png" alt="Camiseta Titular">
+            </div>
+            <div class="product-info">
+                <h3>Camiseta Titular 2026</h3>
+                <p class="price">$82.000</p>
+                <button class="btn-add">Agregar al carrito</button>
+            </div>
+        </div>
+
+        <div class="product-card">
+            <div class="product-image">
+                <span class="badge-sale">SALE</span>
+                <img src="img/camisetas/secundaria2026.png" alt="Camiseta Alternativa">
+            </div>
+            <div class="product-info">
+                <h3>Camiseta Alternativa 2026</h3>
+                <p class="price">$82.000</p>
+                <button class="btn-add">Agregar al carrito</button>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <img src="img/logoblack.png" alt="Logo" class="footer-logo">
+            <p>La tienda oficial del mas grande de La Matanza.</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-section">
+            <h3>Navegación</h3>
+            <ul>
+                <li><a href="#">Cómo comprar</a></li>
+                <li><a href="#">Cambios y Devoluciones</a></li>
+                <li><a href="#">Talles</a></li>
+                <li><a href="#">Contacto</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-section">
+            <h3>Encontranos</h3>
+            <p><i class="fas fa-map-marker-alt"></i> Villa Luzuriaga, La Matanza, Buenos Aires</p>
+            <p><i class="fas fa-clock"></i> Lunes a Sábados: 10:00 a 20:00hs</p>
+            <p><i class="fas fa-envelope"></i> info@fragatamania.com</p>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 FragataMania Atalaya - Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+const menuBtn = document.getElementById('mobile-menu');
+const navMenu = document.getElementById('nav-menu');
+const cartCountElement = document.getElementById('cart-count');
+const addButtons = document.querySelectorAll('.btn-add');
+
+// LÓGICA DEL MENÚ HAMBURGUESA (MOBILE)
+if (menuBtn && navMenu) {
+    menuBtn.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        
+        // Cambiar icono de hamburguesa a cruz
+        const icon = menuBtn.querySelector('i');
+        if (navMenu.classList.contains('active')) {
+            icon.classList.replace('fa-bars', 'fa-times');
+        } else {
+            icon.classList.replace('fa-times', 'fa-bars');
+        }
+    });
+
+    // Cerrar menú al hacer click en un link
+    const navLinks = document.querySelectorAll('.nav-links a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            const icon = menuBtn.querySelector('i');
+            icon.classList.replace('fa-times', 'fa-bars');
+        });
+    });
+}
+
+// LÓGICA DEL CARRITO (CONTADOR)
+let count = 0;
+
+addButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        count++;
+        cartCountElement.innerText = count;
+        
+        cartCountElement.style.transform = "scale(1.5)";
+        setTimeout(() => {
+            cartCountElement.style.transform = "scale(1)";
+        }, 200);
+
+        const originalText = button.innerText;
+        button.innerText = "¡AGREGADO!";
+        button.style.backgroundColor = "#FFD700";
+        button.style.color = "#000";
+        
+        setTimeout(() => {
+            button.innerText = originalText;
+            button.style.backgroundColor = ""; 
+            button.style.color = "";
+        }, 1500);
+    });
+});
+
+// LÓGICA DEL BUSCADOR
+const searchInput = document.querySelector('.search-box-static input');
+const searchBtn = document.querySelector('.search-box-static button');
+
+if (searchInput) {
+    searchInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            alert('Buscando: ' + searchInput.value);
+        }
+    });
+    searchBtn.addEventListener('click', () => {
+        if(searchInput.value !== "") {
+            alert('Buscando: ' + searchInput.value);
+        }
+    });
+}
+</script>
+
+</body>
+</html>
