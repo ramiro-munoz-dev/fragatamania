@@ -22,7 +22,7 @@
     <nav class="nav-container" id="nav-menu">
         <ul class="nav-links">
             <li><a href="#">DESTACADOS</a></li>
-            <li><a href="#">HOMBRE</a></li>
+            <li><a href="hombre.html">HOMBRE</a></li>
             <li><a href="#">MUJER</a></li>
             <li><a href="#">NIÑO/A</a></li>
             <li><a href="#" class="sale-button">SALE</a></li>
@@ -55,11 +55,12 @@
         <div class="product-card">
             <div class="product-image">
                 <span class="badge">Nuevo</span>
-                <img src="img/camisetas/titular2026.png" alt="Camiseta Titular">
+                <img src="img/camisetas/titular.png" alt="Camiseta Titular">
             </div>
             <div class="product-info">
                 <h3>Camiseta Titular 2026</h3>
                 <p class="price">$82.000</p>
+                <a href="producto.html?camiseta=titular" class="btn-view">Ver Producto</a>
                 <button class="btn-add">Agregar al carrito</button>
             </div>
         </div>
@@ -67,11 +68,12 @@
         <div class="product-card">
             <div class="product-image">
                 <span class="badge-sale">SALE</span>
-                <img src="img/camisetas/secundaria2026.png" alt="Camiseta Alternativa">
+                <img src="img/camisetas/secundaria.png" alt="Camiseta Alternativa">
             </div>
             <div class="product-info">
                 <h3>Camiseta Alternativa 2026</h3>
                 <p class="price">$82.000</p>
+                <a href="producto.html?camiseta=alt" class="btn-view">Ver Producto</a>
                 <button class="btn-add">Agregar al carrito</button>
             </div>
         </div>
@@ -84,9 +86,9 @@
             <img src="img/logoblack.png" alt="Logo" class="footer-logo">
             <p>La tienda oficial del mas grande de La Matanza.</p>
             <div class="social-links">
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/fragata_mania/"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/FragataManiaAtalaya"><i class="fab fa-facebook"></i></a>
+                <a href="https://api.whatsapp.com/send/?phone=5491133435760&text&type=phone_number&app_absent=0&utm_source=ig"><i class="fab fa-whatsapp"></i></a>
             </div>
         </div>
 
@@ -109,83 +111,81 @@
     </div>
     
     <div class="footer-bottom">
-        <p>&copy; 2026 FragataMania Atalaya - Todos los derechos reservados.</p>
+        <p>&copy; 2026 FragataMania Atalaya - Todos los derechos reservados - ramimirasol.</p>
     </div>
 </footer>
 
 <script>
-const menuBtn = document.getElementById('mobile-menu');
-const navMenu = document.getElementById('nav-menu');
-const cartCountElement = document.getElementById('cart-count');
-const addButtons = document.querySelectorAll('.btn-add');
-
-// LÓGICA DEL MENÚ HAMBURGUESA (MOBILE)
-if (menuBtn && navMenu) {
-    menuBtn.addEventListener('click', () => {
-        navMenu.classList.toggle('active');
+    // 1. Esta función debe ser SAGRADA: la misma en todas las páginas
+    function actualizarContador() {
+        const contador = document.getElementById('cart-count');
+        // Usamos 'carrito' en minúsculas siempre
+        const datosCargados = localStorage.getItem('carrito');
+        const carritoEnMemoria = datosCargados ? JSON.parse(datosCargados) : [];
         
-        // Cambiar icono de hamburguesa a cruz
-        const icon = menuBtn.querySelector('i');
-        if (navMenu.classList.contains('active')) {
-            icon.classList.replace('fa-bars', 'fa-times');
-        } else {
-            icon.classList.replace('fa-times', 'fa-bars');
+        if (contador) {
+            contador.innerText = carritoEnMemoria.length;
         }
-    });
+    }
 
-    // Cerrar menú al hacer click en un link
-    const navLinks = document.querySelectorAll('.nav-links a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            const icon = menuBtn.querySelector('i');
-            icon.classList.replace('fa-times', 'fa-bars');
+    // 2. Lógica de los botones del Index
+    const botonesAgregarIndex = document.querySelectorAll('.btn-add');
+
+    botonesAgregarIndex.forEach(boton => {
+        boton.addEventListener('click', (event) => {
+            event.preventDefault();
+
+            // Captura de datos
+            const card = boton.closest('.product-card');
+            const titulo = card.querySelector('h3').innerText;
+            const precio = card.querySelector('.price').innerText;
+            const imagen = card.querySelector('img').src;
+
+            // Creamos el objeto
+            const productoNuevo = {
+                id: titulo.toLowerCase().replace(/\s+/g, '-'),
+                titulo: titulo,
+                precio: precio,
+                imagen: imagen,
+                talle: "M"
+            };
+
+            // --- AQUÍ ESTÁ EL ARREGLO ---
+            // Leemos lo que YA HAY en 'carrito' (minúsculas)
+            let carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+            
+            // Agregamos el nuevo
+            carritoActual.push(productoNuevo);
+            
+            // VOLVEMOS A GUARDAR en 'carrito'
+            localStorage.setItem('carrito', JSON.stringify(carritoActual));
+
+            // Actualizamos el número
+            actualizarContador();
+            
+            alert("¡Agregado al carrito general!");
         });
     });
-}
 
-// LÓGICA DEL CARRITO (CONTADOR)
-let count = 0;
+    // Ejecutar al cargar para sincronizar con lo que se agregó en la otra página
+    document.addEventListener('DOMContentLoaded', actualizarContador);
+    // --- LÓGICA UNIVERSAL PARA MENÚ HAMBURGUESA ---
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navMenuContainer = document.getElementById('nav-menu');
 
-addButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        count++;
-        cartCountElement.innerText = count;
-        
-        cartCountElement.style.transform = "scale(1.5)";
-        setTimeout(() => {
-            cartCountElement.style.transform = "scale(1)";
-        }, 200);
-
-        const originalText = button.innerText;
-        button.innerText = "¡AGREGADO!";
-        button.style.backgroundColor = "#FFD700";
-        button.style.color = "#000";
-        
-        setTimeout(() => {
-            button.innerText = originalText;
-            button.style.backgroundColor = ""; 
-            button.style.color = "";
-        }, 1500);
-    });
+    if (mobileMenuBtn && navMenuContainer) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita comportamientos raros
+            navMenuContainer.classList.toggle('active');
+            
+            // Log para que veas en la consola si está funcionando
+            console.log("Menú clickeado. Estado 'active':", navMenuContainer.classList.contains('active'));
+        });
+    } else {
+        console.error("No se encontraron los IDs 'mobile-menu' o 'nav-menu'. Revisá tu HTML.");
+    }
 });
-
-// LÓGICA DEL BUSCADOR
-const searchInput = document.querySelector('.search-box-static input');
-const searchBtn = document.querySelector('.search-box-static button');
-
-if (searchInput) {
-    searchInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            alert('Buscando: ' + searchInput.value);
-        }
-    });
-    searchBtn.addEventListener('click', () => {
-        if(searchInput.value !== "") {
-            alert('Buscando: ' + searchInput.value);
-        }
-    });
-}
 </script>
 
 </body>

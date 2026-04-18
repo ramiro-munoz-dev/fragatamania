@@ -27,7 +27,7 @@ body::before {
     width: 100%;
     height: 100%;
     
-    background-image: url('img/escudochi.png'); 
+    background-image: url('img/escudo.png'); 
     background-repeat: repeat;
     background-size: 100px; 
     
@@ -231,12 +231,32 @@ body::before {
 
 .product-info {
     padding: 20px;
+    display: flex;
+    flex-direction: column; /* Alinea todo para abajo */
+    align-items: center;    /* Centra los textos y botones */
+    gap: 10px;              /* Espacio automático entre cada elemento */
+}
+
+.product-info a, .product-info button {
+    width: 100%;            /* Que ocupen todo el ancho disponible */
+    padding: 12px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+    border: 2px solid #FFD700;
+    cursor: pointer;
+    transition: 0.3s;
     text-align: center;
 }
 
-.product-info h3 {
-    font-size: 1.1rem;
-    margin-bottom: 10px;
+.btn-view {
+    background-color: transparent;
+    color: #FFD700;
+}
+
+.btn-view:hover {
+    background-color: #FFD700;
+    color: black;
 }
 
 .price {
@@ -254,20 +274,13 @@ body::before {
 }
 
 .btn-add {
-    background-color: transparent;
-    color: #FFD700;
-    border: 2px solid #FFD700;
-    padding: 10px 20px;
-    width: 100%;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
-    text-transform: uppercase;
+    background-color: #FFD700;
+    color: black;
 }
 
 .btn-add:hover {
-    background-color: #FFD700;
-    color: #000;
+    background-color: white;
+    border-color: white;
 }
 
 .main-footer {
@@ -463,7 +476,189 @@ body::before {
     border: 2px solid #000000;
 }
 
+/* --- ESTILOS DE PÁGINA DE PRODUCTO INDIVIDUAL --- */
+
+/* Contenedor principal que divide la galería de la info */
+.product-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    margin-top: 50px;
+    margin-bottom: 80px;
+    align-items: start;
+}
+
+/* --- SECCIÓN GALERÍA --- */
+.product-gallery {
+    display: flex;
+    gap: 15px;
+}
+
+.thumbnail-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 80px; /* Ancho fijo para las miniaturas */
+}
+
+.thumbnail-list img {
+    width: 100%;
+    aspect-ratio: 1; /* Cuadradas */
+    object-fit: cover;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.thumbnail-list img:hover,
+.thumbnail-list img.active-thumb {
+    border-color: #000; /* Borde negro al pasar el mouse o seleccionado */
+    filter: brightness(0.9);
+}
+
+.main-image {
+    flex: 1;
+}
+
+.main-image img {
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05); /* Sombra suave */
+}
+
+/* --- AJUSTES PARA FRAGATAMANIA (MODO OSCURO) --- */
+
+.product-details {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: white; /* Esto hace que el título y textos sean blancos */
+    text-align: left;
+}
+
+.product-header h1 {
+    font-size: 38px;
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.product-header .price {
+    font-size: 32px;
+    color: #FFD700; /* Oro/Amarillo para el precio */
+    font-weight: 800;
+}
+
+/* --- BOTONES DE TALLE --- */
+.talle-options {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.talle-btn {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: 1px solid #555;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.talle-btn:hover {
+    border-color: #FFD700;
+}
+
+.talle-btn.selected {
+    background-color: #FFD700;
+    color: black;
+    border-color: #FFD700;
+}
+
+/* --- BOTÓN AGREGAR AL CARRITO --- */
+.btn-primary {
+    width: 100%;
+    background-color: #FFD700;
+    color: black;
+    border: none;
+    padding: 18px;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: transform 0.1s, background-color 0.2s;
+}
+
+.btn-primary:active {
+    transform: scale(0.98); /* Efecto de hundido al cliquear */
+}
+
+.btn-primary:hover {
+    background-color: #e6c200;
+}
+
+/* --- BOTÓN FAVORITO --- */
+.btn-secondary {
+    background: transparent;
+    border: 1px solid #555;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    border-color: white;
+}
+
+/* --- INFO DE PAGO Y ENVÍO --- */
+.product-info-grid {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.info-item i {
+    color: #FFD700;
+    font-size: 1.2rem;
+    margin-top: 3px;
+}
+
+.info-item p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #ddd;
+}
+
+.info-item span {
+    display: block; /* Para que el precio resalte en otra línea */
+    font-weight: bold;
+    color: #FFD700;
+    font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
+    /* --- NAVBAR Y MENÚ (Lo que ya tenías) --- */
     .navbar {
         display: flex;
         flex-direction: row; 
@@ -482,14 +677,15 @@ body::before {
     }
 
     .nav-container {
-        display: none; 
+        display: none;
+        flex-direction: column;
         position: absolute;
         top: 70px;
         left: 0;
         width: 100%;
-        background-color: #000000;
-        z-index: 999;
-        border-bottom: 2px solid #FFD700;
+        background-color: #000;
+        padding: 20px 0;
+        z-index: 1000;
     }
 
     .nav-container.active {
@@ -514,7 +710,16 @@ body::before {
         display: block;
         padding: 10px;
     }
-    
+
+    .logo-img {
+        height: 40px;
+    }
+
+    .logo-text h1 {
+        font-size: 1.1rem;
+    }
+
+    /* --- GRILLA DE PRODUCTOS (Index / Hombre) --- */
     .products-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 12px;
@@ -525,15 +730,65 @@ body::before {
         height: 180px;
     }
 
-    .logo-img {
-        height: 40px;
+    /* --- PÁGINA DE PRODUCTO INDIVIDUAL (Nuevo) --- */
+    .product-wrapper {
+        flex-direction: column; /* Foto arriba, texto abajo */
+        margin-top: 80px; /* Para que la navbar no lo tape */
+        padding: 15px;
+        gap: 20px;
     }
 
-    .logo-text h1 {
-        font-size: 1.1rem;
+    .product-gallery {
+        flex-direction: column-reverse; /* Miniaturas debajo de la foto grande */
+        width: 100%;
+    }
+
+    .thumbnail-list {
+        flex-direction: row; /* Miniaturas horizontales */
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
+        margin-top: 15px;
+    }
+
+    .thumbnail-list img {
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+    }
+
+    .main-image {
+        width: 100%;
+    }
+
+    .main-image img {
+        width: 100%;
+        height: auto;
+    }
+
+    .product-details {
+        width: 100%;
+        text-align: center; /* Centramos para que sea más fácil leer */
+    }
+
+    .product-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .talle-options {
+        justify-content: center; /* Centramos los botones de talle */
+        gap: 10px;
+    }
+
+    .btn-primary {
+        width: 100%; /* Botón grande, fácil de tocar con el pulgar */
+        padding: 18px;
+        font-size: 1.2rem;
+        margin-top: 10px;
     }
 }
 
+/* Animación que ya tenías mencionada */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }

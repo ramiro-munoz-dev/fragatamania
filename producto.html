@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Producto Individual | FragataMania</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="product-page">
+    <header class="navbar">
+        <div class="logo-container">
+            <img src="img/logoblack.png" alt="Logo" class="logo-img">
+            <div class="logo-text">
+                <h1>FRAGATAMANIA</h1>
+                <p>ATALAYA</p>
+            </div>
+        </div>
+
+        <nav class="nav-container" id="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html">DESTACADOS</a></li>
+                <li><a href="hombre.html">HOMBRE</a></li>
+                <li><a href="#">MUJER</a></li>
+                <li><a href="#">NIÑO/A</a></li>
+                <li><a href="#" class="sale-button">SALE</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-right">
+            <div class="search-box-static">
+                <input type="text" placeholder="Buscar...">
+                <button id="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+
+            <div class="cart-container">
+                <a href="#" id="cart-icon">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="cart-count">0</span>
+                </a>
+            </div>
+
+            <button class="menu-toggle" id="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main class="container product-wrapper">
+        <section class="product-gallery">
+            <div class="thumbnail-list">
+                </div>
+            <div class="main-image">
+                <img id="main-product-img" src="" alt="Cargando producto...">
+            </div>
+        </section>
+
+        <section class="product-details">
+            <div class="product-header">
+                <h1 id="product-title">Cargando...</h1>
+                <p class="category">Categoría</p>
+                <p id="product-price" class="price">$0</p>
+            </div>
+
+            <div class="talle-selector">
+                <label>Seleccionar Talle</label>
+                <div class="talle-options">
+                    <button class="talle-btn">S</button>
+                    <button class="talle-btn selected">M</button>
+                    <button class="talle-btn">L</button>
+                    <button class="talle-btn">XL</button>
+                </div>
+            </div>
+
+            <div class="product-actions">
+                <button class="btn-primary">AGREGAR AL CARRITO</button>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 1. Datos de tus productos
+        const productos = {
+            'titular': {
+                titulo: 'Camiseta Titular 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/titular.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/titular.png', 'img/camisetas/tallecamiseta.png']
+            },
+            'alt': {
+                titulo: 'Camiseta Suplente 2026',
+                precio: '$82.500',
+                imgPrincipal: 'img/camisetas/secundaria.png',
+                categoria: 'Hombre - Alternativa',
+                miniaturas: ['img/camisetas/secundaria.png', 'img/camisetas/secundariaback.png']
+            },
+            'altnegra': {
+                titulo: 'Camiseta Alternativa 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/terciaria.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/terciaria.png', 'img/camisetas/terciariaback.png']
+            },
+            'arquero': {
+                titulo: 'Camiseta Arquero Azul 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/arquero.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/arquero.png']
+            },
+            'arquerorosa': {
+                titulo: 'Camiseta Arquero Rosa 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/arquerosecu.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/arquerosecu.png']
+            },
+            'training': {
+                titulo: 'Camiseta Training 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/training.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/training.png']
+            },
+            'trainingblanca': {
+                titulo: 'Camiseta Training Blanca 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/camisetas/trainingblanca.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/camisetas/trainingblanca.png']
+            },
+            'bermuda': {
+                titulo: 'Bermuda Basquet',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/bermuda.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/bermuda.png']
+            },
+            'bermudahombre': {
+                titulo: 'Bermuda Hombre',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/bermudahombre.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/bermudahombre.png']
+            },
+            'campera': {
+                titulo: 'Campera Oficial 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/campera.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/campera.png']
+            },
+            'chomba': {
+                titulo: 'Chomba Oficial 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/chombasalir.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/chombasalir.png']
+            },
+            'musculosa': {
+                titulo: 'Musculosa Negra 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/musculosa.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/musculosa.png', 'img/hombre/musculosaback.png']
+            },
+            'musculosaamarilla': {
+                titulo: 'Musculosa Amarilla 2026',
+                precio: '$82.000',
+                imgPrincipal: 'img/hombre/musculosaamarilla.png',
+                categoria: 'Hombre - Edición Especial',
+                miniaturas: ['img/hombre/musculosaamarilla.png']
+            }
+        };
+
+        // 2. Cargar datos desde la URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const idProducto = urlParams.get('camiseta');
+        const info = productos[idProducto];
+
+        if (info) {
+            document.getElementById('product-title').innerText = info.titulo;
+            document.getElementById('product-price').innerText = info.precio;
+            document.getElementById('main-product-img').src = info.imgPrincipal;
+            document.querySelector('.category').innerText = info.categoria;
+
+            // Renderizar Miniaturas
+            const thumbContainer = document.querySelector('.thumbnail-list');
+            thumbContainer.innerHTML = ''; 
+
+            if (info.miniaturas && info.miniaturas.length > 0) {
+                info.miniaturas.forEach((src, index) => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    if (index === 0) img.classList.add('active-thumb');
+                    img.addEventListener('click', () => {
+                        document.getElementById('main-product-img').src = img.src;
+                        document.querySelectorAll('.thumbnail-list img').forEach(t => t.classList.remove('active-thumb'));
+                        img.classList.add('active-thumb');
+                    });
+                    thumbContainer.appendChild(img);
+                });
+            }
+        } else {
+            document.getElementById('product-title').innerText = "Producto no encontrado";
+        }
+
+        // 3. Selección de Talles
+        const botonesTalle = document.querySelectorAll('.talle-btn');
+        botonesTalle.forEach(boton => {
+            boton.addEventListener('click', () => {
+                botonesTalle.forEach(btn => btn.classList.remove('selected'));
+                boton.classList.add('selected');
+            });
+        });
+
+        // 4. Carrito de Compras (Lógica Blindada)
+        const btnAgregar = document.querySelector('.btn-primary');
+
+        btnAgregar.addEventListener('click', (event) => {
+            event.preventDefault(); // Evita que la página se refresque
+
+            const talleElemento = document.querySelector('.talle-btn.selected');
+            if (!talleElemento) {
+                alert("Por favor, seleccioná un talle.");
+                return;
+            }
+
+            if (!info) return; // Seguridad si no hay producto cargado
+
+            const productoCarrito = {
+                id: idProducto,
+                titulo: info.titulo,
+                precio: info.precio,
+                talle: talleElemento.innerText,
+                imagen: info.imgPrincipal
+            };
+
+            // Guardar en LocalStorage sin pisar lo anterior
+            let carritoActual = JSON.parse(localStorage.getItem('carrito')) || [];
+            carritoActual.push(productoCarrito);
+            localStorage.setItem('carrito', JSON.stringify(carritoActual));
+
+            actualizarContador();
+            alert(`¡${info.titulo} agregado al carrito!`);
+        });
+
+        // 5. Actualizar el contador de la Navbar
+        function actualizarContador() {
+            const contador = document.getElementById('cart-count');
+            const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+            if (contador) {
+                contador.innerText = carrito.length;
+            }
+        }
+
+        actualizarContador();
+        // --- LÓGICA UNIVERSAL PARA MENÚ HAMBURGUESA ---
+document.addEventListener('DOMContentLoaded', () => {
+    const mobileMenuBtn = document.getElementById('mobile-menu');
+    const navMenuContainer = document.getElementById('nav-menu');
+
+    if (mobileMenuBtn && navMenuContainer) {
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.preventDefault(); // Evita comportamientos raros
+            navMenuContainer.classList.toggle('active');
+            
+            // Log para que veas en la consola si está funcionando
+            console.log("Menú clickeado. Estado 'active':", navMenuContainer.classList.contains('active'));
+        });
+    } else {
+        console.error("No se encontraron los IDs 'mobile-menu' o 'nav-menu'. Revisá tu HTML.");
+    }
+});
+    </script>
+</body>
+</html>
